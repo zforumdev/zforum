@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return inertia('Home', [
+        'auth' => Auth::user()
+    ]);
 });
+
+Route::get('/auth/register', [RegistrationController::class, 'create'])->middleware('guest');
+Route::post('/auth/register', [RegistrationController::class, 'store'])->middleware('guest');
+
+Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('guest');
+Route::post('/auth/login', [SessionsController::class, 'store'])->middleware('guest');
+
+Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');
