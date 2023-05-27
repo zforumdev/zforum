@@ -20,7 +20,7 @@ class SessionsController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($attributes)) {
+        if (Auth::attempt($attributes, $request->remember)) {
             return Inertia::location('/');
         }
 

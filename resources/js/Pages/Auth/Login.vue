@@ -4,7 +4,8 @@ import AuthLayout from '../../Layouts/AuthLayout.vue'
 
 const form = useForm({
     email: '',
-    password: ''
+    password: '',
+    remember: true,
 })
 
 const login = () => {
@@ -24,6 +25,11 @@ const login = () => {
                 Password
                 <input type="password" v-model="form.password" class="input w-full input-bordered">
                 <span v-if="$attrs.errors.password" class="text-error">{{ $attrs.errors.password }}</span>
+            </label>
+
+            <label class="flex">
+                <input type="checkbox" v-model="form.remember" class="checkbox" />
+                <span class="label-text ml-2 my-auto">Remember Me</span>
             </label>
 
             <button class="btn btn-primary">Register</button>
