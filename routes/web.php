@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\SubforumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return inertia('Home', [
-        'auth' => Auth::user()
-    ]);
-});
+Route::get('/', [PostController::class, 'index']);
+Route::get('/s/{subforum:slug}', [SubforumController::class, 'view']);
+
+Route::get('/post/{post}', [PostController::class, 'view']);
+
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
+Route::post('/posts/create', [PostController::class, 'store'])->middleware('auth');
 
 Route::get('/auth/register', [RegistrationController::class, 'create'])->middleware('guest');
 Route::post('/auth/register', [RegistrationController::class, 'store'])->middleware('guest');
 
-Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('guest');
+Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('guest')->name('login');
 Route::post('/auth/login', [SessionsController::class, 'store'])->middleware('guest');
 
 Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');

@@ -1,5 +1,5 @@
 <template>
-    <main class="prose mx-auto p-4">
+    <main class="prose w-[65ch] mx-auto p-4">
         <slot />
     </main>
 </template>
