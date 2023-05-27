@@ -32,7 +32,7 @@ const login = () => {
                 <span class="label-text ml-2 my-auto">Remember Me</span>
             </label>
 
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-primary">Log In</button>
         </form>
     </AuthLayout>
 </template>
