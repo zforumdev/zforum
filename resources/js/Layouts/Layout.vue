@@ -48,7 +48,9 @@ const reload = () => { router.reload({ preserveScroll: true, preserveState: true
                     </div>
                     <div v-else class="dropdown dropdown-end">
                         <Link href="/auth/login" class="btn btn-ghost">Log In</Link>
-                        <Link href="/auth/register" class="btn btn-primary">Register</Link>
+                        <div class="hidden sm:inline">
+                            <Link href="/auth/register" class="btn btn-primary">Register</Link>
+                        </div>
                     </div>
                 </div>
             </div>
