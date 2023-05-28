@@ -17,6 +17,14 @@ const register = () => {
 }
 </script>
 
+<script>
+import Layout from '../../Layouts/Layout.vue'
+
+export default {
+    layout: Layout
+}
+</script>
+
 <template>
     <AuthLayout page="register">
         <form @submit.prevent="register" class="card card-bordered bg-base-200 p-4 space-y-8">

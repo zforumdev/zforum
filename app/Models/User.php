@@ -5,9 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use function Termwind\renderUsing;
 
 class User extends Authenticatable
 {
@@ -45,9 +47,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function subposts(): HasMany
+    {
+        return $this->hasMany(Subpost::class);
     }
 
     /**

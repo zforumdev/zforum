@@ -13,6 +13,14 @@ const login = () => {
 }
 </script>
 
+<script>
+import Layout from '../../Layouts/Layout.vue'
+
+export default {
+    layout: Layout
+}
+</script>
+
 <template>
     <AuthLayout page="login">
         <form @submit.prevent="login" class="card card-bordered bg-base-200 p-4 space-y-8">

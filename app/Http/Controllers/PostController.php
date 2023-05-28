@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Subpost;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         return inertia('Home', [
-            'posts' => Post::with('user:id,username,display_name')
+            'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
                 ->orderBy('created_at', 'desc')
                 ->get()
         ]);
@@ -24,7 +25,8 @@ class PostController extends Controller
     {
         return inertia('Posts/Show', [
             'post' => $post->with('user:id,username,display_name')->where('id', $post->id)->firstOrFail(),
-            'body' => Str::markdown($post->body)
+            'body' => Str::markdown($post->body),
+            'subposts' => Subpost::with('user:id,username')->where('subpostable_id', $post->id)->get()
         ]);
     }
 

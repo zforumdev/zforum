@@ -27,6 +27,14 @@ watch(code, () => {
 }, { immediate: true })
 </script>
 
+<script>
+import Layout from '../../Layouts/Layout.vue'
+
+export default {
+    layout: Layout
+}
+</script>
+
 <template>
     <form class="flex justify-between gap-2 p-2 bg-base-200" @submit.prevent="router.post('/posts/create', form)">
         <input v-model="form.title" class="input input-bordered w-full" placeholder="Post Title">

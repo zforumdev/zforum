@@ -51,6 +51,9 @@ devDependencies:
   axios:
     specifier: ^1.1.2
     version: 1.1.2
+  chokidar:
+    specifier: ^3.5.3
+    version: 3.5.3
   daisyui:
     specifier: ^2.51.6
     version: 2.51.6(autoprefixer@10.4.14)(postcss@8.4.23)
