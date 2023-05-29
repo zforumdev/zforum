@@ -1,15 +1,31 @@
 <script setup>
 import { ref } from 'vue'
-import { Link, router, usePage } from '@inertiajs/vue3'
+import { Link, router, useForm, usePage } from '@inertiajs/vue3'
 
 const showSearch = ref(false)
 
 const page = usePage()
 
+const searchForm = useForm({
+    search: ''
+})
+
 const reload = () => {
     const url = new URL(window.location.href)
     url.searchParams.delete('page')
     router.get(`${url.pathname}${url.search}`, { preserveScroll: true, preserveState: true })
+}
+
+const search = () => {
+    if (router.page.url.startsWith('/?' || '/s/') || router.page.url === '/') {
+        const url = new URL(window.location.href)
+        url.searchParams.delete('page')
+        url.searchParams.delete('search')
+        url.searchParams.append('search', searchForm.search)
+        router.get(`${url.pathname}${url.search}`)
+    } else {
+        router.get(`/?search=${searchForm.search}`)
+    }
 }
 </script>
 
@@ -29,7 +45,13 @@ const reload = () => {
                 </div>
                 <div class="flex-none gap-2">
                     <div class="form-control">
-                        <input type="text" placeholder="Search" class="input input-bordered hidden sm:block" />
+                        <form @submit.prevent="search">
+                            <input type="text"
+                                   placeholder="Search"
+                                   class="input input-bordered hidden sm:block"
+                                   v-model="searchForm.search"
+                            />
+                        </form>
                         <button @click="showSearch = !showSearch" class="btn btn-secondary btn-circle block sm:hidden">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -58,9 +80,14 @@ const reload = () => {
                     </div>
                 </div>
             </div>
-            <div v-if="showSearch" class="bg-base-200 pb-2">
-                <input type="text" placeholder="Search" class="input input-bordered w-full px-2" />
-            </div>
+            <form v-if="showSearch" class="bg-base-200 pb-2 flex gap-2 px-2" @submit.prevent="search">
+                <input type="text"
+                       placeholder="Search"
+                       class="input input-bordered w-full px-2"
+                       v-model="searchForm.search"
+                />
+                <button class="btn btn-primary">Search</button>
+            </form>
 
             <slot />
         </div>

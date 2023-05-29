@@ -11,8 +11,17 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            return inertia('Home', [
+                'posts' => Post::search($request->get('search'))
+                    ->get()
+                    ->load(['user:id,username,display_name', 'subforum:id,name']),
+                'query' => $request->get('search')
+            ]);
+        }
+
         return inertia('Home', [
             'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
                 ->orderBy('created_at', 'desc')

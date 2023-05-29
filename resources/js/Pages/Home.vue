@@ -7,7 +7,7 @@ import CreateMeta from '../Components/CreateMeta.vue'
 const attrs = useAttrs()
 
 const el = ref(null)
-const allPosts = ref(attrs.posts.data)
+const allPosts = ref(attrs.posts.data ?? attrs.posts)
 
 onMounted(() => {
     if (attrs.posts.current_page !== 1) {
@@ -40,7 +40,7 @@ export default {
 <template>
     <CreateMeta title="Home" />
     <Content>
-        <h1 class="text-center">{{ attrs.sub }}</h1>
+<!--        <h1 class="text-center">{{ attrs.subforum.name ?? 'All Posts' }}</h1>-->
         <article class="space-y-5" id="el">
             <section v-for="(item, index) in allPosts" class="not-prose">
                 <Link :href="`/post/${item.id}`" class="card bg-base-200 p-4 no-underline">
