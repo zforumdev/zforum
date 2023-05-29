@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
 class Post extends Model
@@ -20,6 +21,13 @@ class Post extends Model
         'subforum_id',
         'user_id'
     ];
+
+    protected $appends = ['description'];
+
+    public function getDescriptionAttribute(): string
+    {
+        return Str::limit(strip_tags(Str::markdown($this->body)), 120);
+    }
 
     protected function makeAllSearchableUsing(Builder $query): Builder
     {

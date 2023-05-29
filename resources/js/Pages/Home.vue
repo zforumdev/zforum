@@ -40,7 +40,11 @@ export default {
 <template>
     <CreateMeta title="Home" />
     <Content>
-<!--        <h1 class="text-center">{{ attrs.subforum.name ?? 'All Posts' }}</h1>-->
+        <h1 class="text-center" style="margin-bottom: 0">{{ attrs.subforum?.name ?? 'All Posts' }}</h1>
+        <div class="text-center" v-if="attrs.subforum != null">
+            <p>{{ attrs.subforum.description }}</p>
+        </div>
+
         <article class="space-y-5" id="el">
             <section v-for="(item, index) in allPosts" class="not-prose">
                 <Link :href="`/post/${item.id}`" class="card bg-base-200 p-4 no-underline">
@@ -53,6 +57,7 @@ export default {
                     </div>
                     <h3 class="text-2xl font-bold">{{ item.title }}</h3>
                     <span>by @{{ item.user.username }}</span>
+                    <p>{{ item.description }}</p>
                 </Link>
             </section>
         </article>

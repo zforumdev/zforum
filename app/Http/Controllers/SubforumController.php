@@ -16,7 +16,8 @@ class SubforumController extends Controller
                 'posts' => Post::search($request->get('search'))
                     ->get()
                     ->load(['user:id,username,display_name', 'subforum:id,name']),
-                'query' => $request->get('search')
+                'query' => $request->get('search'),
+                'subforum' => $subforum
             ]);
         }
 
@@ -25,7 +26,7 @@ class SubforumController extends Controller
                 ->where('subforum_id', $subforum->id)
                 ->orderBy('created_at', 'desc')
                 ->paginate(10),
-            'sub' => $subforum->name
+            'subforum' => $subforum
         ]);
     }
 }
