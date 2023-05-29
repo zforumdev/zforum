@@ -6,7 +6,11 @@ const showSearch = ref(false)
 
 const page = usePage()
 
-const reload = () => { router.reload({ preserveScroll: true, preserveState: true }) }
+const reload = () => {
+    const url = new URL(window.location.href)
+    url.searchParams.delete('page')
+    router.get(`${url.pathname}${url.search}`, { preserveScroll: true, preserveState: true })
+}
 </script>
 
 <template>
@@ -72,7 +76,7 @@ const reload = () => { router.reload({ preserveScroll: true, preserveState: true
                 </li>
                 <li>
                     <Link href="/"
-                          :class="{ active: page.url === `/` }"
+                          :class="{ active: page.url.startsWith('/?') || page.url === '/' }"
                     >
                         All Posts
                     </Link>
@@ -80,7 +84,7 @@ const reload = () => { router.reload({ preserveScroll: true, preserveState: true
                 <li>
                     <Link v-for="item in $page.props.subforums"
                           :href="`/s/${item.slug}`"
-                          :class="{ active: page.url === `/s/${item.slug}` }"
+                          :class="{ active: page.url.startsWith(`/s/${item.slug}`) }"
                     >
                         {{ item.name }}
                     </Link>

@@ -15,7 +15,7 @@ class SubforumController extends Controller
             'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
                 ->where('subforum_id', $subforum->id)
                 ->orderBy('created_at', 'desc')
-                ->get(),
+                ->paginate(10),
             'sub' => $subforum->name
         ]);
     }

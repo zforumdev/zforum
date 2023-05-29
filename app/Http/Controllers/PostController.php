@@ -16,7 +16,7 @@ class PostController extends Controller
         return inertia('Home', [
             'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
                 ->orderBy('created_at', 'desc')
-                ->get()
+                ->paginate(10)
         ]);
     }
 
