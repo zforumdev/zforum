@@ -62,7 +62,7 @@ const reload = () => { router.reload({ preserveScroll: true, preserveState: true
         </div>
         <div class="drawer-side">
             <label for="sidebar" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 max-w-[90vw] bg-base-200 text-base-content">
+            <ul class="menu p-4 pt-2 w-80 max-w-[90vw] bg-base-200 text-base-content">
                 <li class="mb-2">
                     <Link href="/posts/create" class="btn btn-accent">
                         <span>
