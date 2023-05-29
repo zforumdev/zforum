@@ -47,7 +47,7 @@ const storeReply = () => {
         </form>
 
         <button class="text-sm" @click="showReplies = !showReplies" v-if="props.replies.length > 0">
-            {{ showReplies ? 'hide' : 'show' }} replies
+            {{ showReplies ? 'hide' : 'show' }} replies <i class="fa-solid" :class="showReplies ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
         </button>
 
         <div class="card bg-base-300 space-y-2 p-4" v-if="props.replies.length > 0 && showReplies">
