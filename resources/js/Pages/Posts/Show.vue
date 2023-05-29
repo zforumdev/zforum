@@ -47,7 +47,12 @@ export default {
 
         <div class="card bg-base-200 p-4 mt-4" v-if="attrs.comments.length > 0">
             <div class="space-y-8">
-                <Comment v-for="item in attrs.comments" :author="item.user.username" :body="item.body" />
+                <Comment v-for="item in attrs.comments"
+                         :author="item.user.username"
+                         :body="item.body"
+                         :id="item.id"
+                         :replies="item.replies"
+                />
             </div>
         </div>
     </Content>
