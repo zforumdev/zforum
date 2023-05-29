@@ -34,6 +34,10 @@ export default {
         <div class="not-prose">
             <h1 class="font-bold">{{ attrs.post.title }}</h1>
             by <strong>{{ attrs.post.user.display_name }}</strong> <Link :href="`/u/${attrs.post.user.username}`" class="text-neutral-500">@{{ attrs.post.user.username }}</Link>
+            <form class="text-neutral-500 space-x-2" @submit.prevent="router.post(`/post/${attrs.post.id}/delete`, null)">
+                <Link v-if="attrs.update" :href="`/post/${attrs.post.id}/update`" class="fa-solid fa-edit"></Link>
+                <button v-if="attrs.delete" class="fa-solid fa-trash-alt"></button>
+            </form>
         </div>
 
         <article v-html="attrs.body"></article>

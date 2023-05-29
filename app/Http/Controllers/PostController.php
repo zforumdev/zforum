@@ -35,7 +35,9 @@ class PostController extends Controller
             'post' => $post->with(['user:id,username,display_name'])->where('id', $post->id)->firstOrFail(),
             'body' => Str::markdown($post->body),
             'description' => Str::limit($post->body),
-            'comments' => $post->comments()->with(['user:id,username', 'replies.user:id,username'])->orderBy('id', 'desc')->get()
+            'comments' => $post->comments()->with(['user:id,username', 'replies.user:id,username'])->orderBy('id', 'desc')->get(),
+            'update' => $request->user()?->can('update', $post) ?? false,
+            'delete' => $request->user()?->can('delete', $post) ?? false
         ]);
     }
 
@@ -57,5 +59,47 @@ class PostController extends Controller
         $post = Post::create($attributes);
 
         return Inertia::location('/post/' . $post->id);
+    }
+
+    public function edit(Post $post, Request $request)
+    {
+        if ($request->user()->cannot('update', $post))
+        {
+            abort(403);
+        }
+
+        return inertia('Posts/Create', [
+            'title' => $post->title,
+            'body' => $post->body,
+            'post' => $post->only(['id']),
+            'subforum_id' => $post->subforum_id
+        ]);
+    }
+
+    public function update(Post $post, Request $request)
+    {
+        if ($request->user()->cannot('update', $post))
+        {
+            abort(403);
+        }
+
+        $attributes = $request->validate([
+            'body' => ['required', 'min:32', 'max:2500']
+        ]);
+
+        $post->update($attributes);
+
+        return Inertia::location('/post/' . $post->id);
+    }
+
+    public function destroy(Post $post, Request $request)
+    {
+        if ($request->user()->cannot('delete', $post)) {
+            abort(403);
+        }
+
+        $post->delete();
+
+        return Inertia::location('/');
     }
 }
