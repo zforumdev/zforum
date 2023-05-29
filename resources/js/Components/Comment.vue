@@ -24,6 +24,9 @@ const replyForm = useForm({
 
 const storeReply = () => {
     router.post('/add-reply', replyForm)
+    replyForm.body = ''
+    showReplies.value = true
+    showReplyInput.value = false
 }
 </script>
 
