@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Link, router, useForm, usePage } from '@inertiajs/vue3'
 
 const showSearch = ref(false)
@@ -15,6 +15,10 @@ const reload = () => {
     url.searchParams.delete('page')
     router.get(`${url.pathname}${url.search}`, { preserveScroll: true, preserveState: true })
 }
+
+watch(searchForm, () => {
+    search()
+}, { deep: true })
 
 const search = () => {
     if (router.page.url.startsWith('/?' || '/s/') || router.page.url === '/') {

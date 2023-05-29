@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->has('search')) {
+        if ($request->has('search') and strlen($request->get('search')) > 0) {
             return inertia('Home', [
                 'posts' => Post::search($request->get('search'))
                     ->get()

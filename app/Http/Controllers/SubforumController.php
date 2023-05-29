@@ -11,7 +11,7 @@ class SubforumController extends Controller
 {
     public function view(Subforum $subforum, Request $request)
     {
-        if ($request->has('search')) {
+        if ($request->has('search') and strlen($request->get('search')) > 0) {
             return inertia('Home', [
                 'posts' => Post::search($request->get('search'))
                     ->get()
