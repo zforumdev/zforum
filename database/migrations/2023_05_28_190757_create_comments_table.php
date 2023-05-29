@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subposts', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('post_id');
             $table->text('body');
-            $table->integer('user_id')->unsigned();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->integer('subpostable_id')->unsigned();
-            $table->string('subpostable_type');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subposts');
+        Schema::dropIfExists('comments');
     }
 };

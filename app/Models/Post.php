@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
@@ -29,8 +29,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function subposts(): MorphMany
+    public function comments(): HasMany
     {
-        return $this->morphMany(Subpost::class, 'subpostable')->whereNull('parent_id');
+        return $this->hasMany(Comment::class);
     }
 }

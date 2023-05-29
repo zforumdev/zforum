@@ -2,6 +2,7 @@
 import { useAttrs } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import Content from '../Components/Content.vue'
+import CreateMeta from '../Components/CreateMeta.vue'
 
 const attrs = useAttrs()
 </script>
@@ -15,6 +16,7 @@ export default {
 </script>
 
 <template>
+    <CreateMeta title="Home" />
     <Content>
         <h1 class="text-center">{{ attrs.sub }}</h1>
         <article class="space-y-5">

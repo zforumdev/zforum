@@ -7,7 +7,7 @@ createServer(
     page,
     render: renderToString,
     resolve: (name) => {
-      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Auth/Login.vue": () => import("./assets/Login-8b7ca6c1.js"), "./Pages/Auth/Register.vue": () => import("./assets/Register-33c83243.js"), "./Pages/Home.vue": () => import("./assets/Home-d8ae8b0e.js"), "./Pages/Posts/Create.vue": () => import("./assets/Create-99251aba.js"), "./Pages/Posts/Show.vue": () => import("./assets/Show-69347145.js") });
+      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Auth/Login.vue": () => import("./assets/Login-8b7ca6c1.js"), "./Pages/Auth/Register.vue": () => import("./assets/Register-33c83243.js"), "./Pages/Home.vue": () => import("./assets/Home-6588d8ca.js"), "./Pages/Posts/Create.vue": () => import("./assets/Create-7d0b40f1.js"), "./Pages/Posts/Show.vue": () => import("./assets/Show-ebace019.js") });
       return pages[`./Pages/${name}.vue`]();
     },
     setup({ App, props, plugin }) {

@@ -2,9 +2,10 @@ import { useAttrs, withCtx, unref, createVNode, toDisplayString, openBlock, crea
 import { ssrRenderComponent, ssrInterpolate, ssrRenderList } from "vue/server-renderer";
 import { Link } from "@inertiajs/vue3";
 import { C as Content } from "./Content-d8260f41.js";
-import { _ as _sfc_main$1 } from "./Layout-c5dc6467.js";
+import { _ as _sfc_main$1 } from "./CreateMeta-c7ee5eb6.js";
+import { _ as _sfc_main$2 } from "./Layout-c5dc6467.js";
 const __default__ = {
-  layout: _sfc_main$1
+  layout: _sfc_main$2
 };
 const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
   __name: "Home",
@@ -12,7 +13,9 @@ const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
   setup(__props) {
     const attrs = useAttrs();
     return (_ctx, _push, _parent, _attrs) => {
-      _push(ssrRenderComponent(Content, _attrs, {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(_sfc_main$1, { title: "Home" }, null, _parent));
+      _push(ssrRenderComponent(Content, null, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
             _push2(`<h1 class="text-center"${_scopeId}>${ssrInterpolate(unref(attrs).sub)}</h1><article class="space-y-5"${_scopeId}><!--[-->`);
@@ -75,6 +78,7 @@ const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
         }),
         _: 1
       }, _parent));
+      _push(`<!--]-->`);
     };
   }
 });

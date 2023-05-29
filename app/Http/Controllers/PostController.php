@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Subpost;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +23,10 @@ class PostController extends Controller
     public function view(Post $post, Request $request)
     {
         return inertia('Posts/Show', [
-            'post' => $post->with('user:id,username,display_name')->where('id', $post->id)->firstOrFail(),
+            'post' => $post->with(['user:id,username,display_name'])->where('id', $post->id)->firstOrFail(),
             'body' => Str::markdown($post->body),
-            'subposts' => Subpost::with('user:id,username')->where('subpostable_id', $post->id)->get()
+            'description' => Str::limit($post->body),
+            'comments' => $post->comments()->with('user:id,username')->orderBy('id', 'desc')->get()
         ]);
     }
 

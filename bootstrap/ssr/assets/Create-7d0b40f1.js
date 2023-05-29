@@ -7,10 +7,17 @@ import { useForm } from "@inertiajs/vue3";
 import { marked } from "marked";
 import { _ as _sfc_main$1 } from "./Layout-c5dc6467.js";
 const render = (src, inline) => {
-  return marked.parse(
-    src.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ""),
-    { mangle: false }
-  );
+  if (inline) {
+    return marked.parseInline(
+      src.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ""),
+      { mangle: false }
+    );
+  } else {
+    return marked.parse(
+      src.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ""),
+      { mangle: false }
+    );
+  }
 };
 const __default__ = {
   layout: _sfc_main$1

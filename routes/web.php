@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SubforumController;
-use App\Http\Controllers\SubpostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +22,8 @@ Route::get('/', [PostController::class, 'index']);
 Route::get('/s/{subforum:slug}', [SubforumController::class, 'view']);
 
 Route::get('/post/{post}', [PostController::class, 'view']);
-Route::post('/post/{post}/reply', [SubpostController::class, 'store']);
-Route::post('/post/{post}/reply-nested', [SubpostController::class, 'store_nested']);
+
+Route::post('/post/{post}/add-comment', [CommentController::class, 'store']);
 
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::post('/posts/create', [PostController::class, 'store'])->middleware('auth');
