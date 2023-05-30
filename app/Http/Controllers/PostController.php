@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class PostController extends Controller
 
         return inertia('Home', [
             'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
-                ->orderBy('created_at', 'desc')
+                ->orderBy('updated_at', 'desc')
                 ->paginate(10)
         ]);
     }
@@ -88,6 +89,9 @@ class PostController extends Controller
         ]);
 
         $post->update($attributes);
+
+        $post->edited_at = now('UTC')->toISOString();
+        $post->update();
 
         return Inertia::location('/post/' . $post->id);
     }

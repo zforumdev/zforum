@@ -19,5 +19,7 @@ class CommentController extends Controller
             'user_id' => $request->user()->id,
             'body' => $request->get('body')
         ]);
+
+        $post->touch();
     }
 }

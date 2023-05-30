@@ -3,6 +3,9 @@ import { onMounted, ref, useAttrs } from 'vue'
 import { Link, router } from '@inertiajs/vue3'
 import Content from '../Components/Content.vue'
 import CreateMeta from '../Components/CreateMeta.vue'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 const attrs = useAttrs()
 
@@ -56,7 +59,7 @@ export default {
                         </ul>
                     </div>
                     <h3 class="text-2xl font-bold">{{ item.title }}</h3>
-                    <span>by @{{ item.user.username }}</span>
+                    <span>by @{{ item.user.username }} | posted {{ dayjs(item.created_at).fromNow() }}</span>
                     <p>{{ item.description }}</p>
                 </Link>
             </section>

@@ -5,6 +5,10 @@ import Content from '../../Components/Content.vue'
 import CreateMeta from '../../Components/CreateMeta.vue'
 import { config } from '../../config.js'
 import Comment from '../../Components/Comment.vue'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
 
 const attrs = useAttrs()
 
@@ -32,8 +36,14 @@ export default {
     />
     <Content>
         <div class="not-prose">
-            <h1 class="font-bold">{{ attrs.post.title }}</h1>
+            <h1 class="font-bold text-xl">{{ attrs.post.title }}</h1>
             by <strong>{{ attrs.post.user.display_name }}</strong> <Link :href="`/u/${attrs.post.user.username}`" class="text-neutral-500">@{{ attrs.post.user.username }}</Link>
+            <p>
+                posted {{ dayjs(attrs.post.created_at).fromNow() }} ({{ dayjs(attrs.post.created_at).format('YYYY-MM-DD') }})
+                <span v-if="attrs.post.edited_at != null">
+                    edited {{ dayjs(attrs.post.edited_at).fromNow() }} ({{ dayjs(attrs.post.edited_at).format('YYYY-MM-DD') }})
+                </span>
+            </p>
             <form class="text-neutral-500 space-x-2" @submit.prevent="router.post(`/post/${attrs.post.id}/delete`, null)">
                 <Link v-if="attrs.update" :href="`/post/${attrs.post.id}/update`" class="fa-solid fa-edit"></Link>
                 <button v-if="attrs.delete" class="fa-solid fa-trash-alt"></button>
