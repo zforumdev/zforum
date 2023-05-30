@@ -20,4 +20,4 @@ yarn-error.log
 rr
 .rr.yaml
 /data.ms
-/bootstrap/ssr/assets/*
+/bootstrap/ssr
