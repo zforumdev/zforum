@@ -39,6 +39,6 @@ Route::get('/auth/register', [RegistrationController::class, 'create'])->middlew
 Route::post('/auth/register', [RegistrationController::class, 'store'])->middleware('guest');
 
 Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('guest')->name('login');
-Route::post('/auth/login', [SessionsController::class, 'store'])->middleware(['guest', 'login']);
+Route::post('/auth/login', [SessionsController::class, 'store'])->middleware(['guest', 'throttle:login']);
 
 Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');
