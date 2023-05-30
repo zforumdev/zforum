@@ -29,16 +29,16 @@ Route::post('/post/{post}/update', [PostController::class, 'update']);
 
 Route::post('/post/{post}/delete', [PostController::class, 'destroy']);
 
-Route::post('/post/{post}/add-comment', [CommentController::class, 'store']);
-Route::post('/add-reply', [ReplyController::class, 'store']);
+Route::post('/post/{post}/add-comment', [CommentController::class, 'store'])->middleware(['auth', 'throttle:reply']);
+Route::post('/add-reply', [ReplyController::class, 'store'])->middleware(['auth', 'throttle:reply']);
 
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
-Route::post('/posts/create', [PostController::class, 'store'])->middleware('auth');
+Route::post('/posts/create', [PostController::class, 'store'])->middleware(['auth', 'throttle:create-post']);
 
 Route::get('/auth/register', [RegistrationController::class, 'create'])->middleware('guest');
 Route::post('/auth/register', [RegistrationController::class, 'store'])->middleware('guest');
 
 Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('guest')->name('login');
-Route::post('/auth/login', [SessionsController::class, 'store'])->middleware('guest');
+Route::post('/auth/login', [SessionsController::class, 'store'])->middleware(['guest', 'login']);
 
 Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');

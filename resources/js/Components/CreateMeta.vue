@@ -10,23 +10,6 @@ const props = defineProps([
 </script>
 
 <template>
-<!--    <Head :title="title">-->
-<!--        <meta name="title" :content="title">-->
-<!--        <meta name="description" :content="description ?? config.description">-->
-<!--        <meta name="theme-color" content="#381e72">-->
-
-<!--        <meta property="og:type" content="website">-->
-<!--        <meta property="og:url" :content="config.url">-->
-<!--        <meta property="og:title" :content="`${title} - ${config.name}}`">-->
-<!--        <meta property="og:description" :content="description ?? config.description">-->
-<!--        <meta property="og:image" :content="image">-->
-
-<!--        <meta property="twitter:card" content="summary_large_image">-->
-<!--        <meta property="twitter:url" :content="config.url">-->
-<!--        <meta property="twitter:title" :content="`${title} - ${config.name}`">-->
-<!--        <meta property="twitter:description" :content="description">-->
-<!--        <meta property="twitter:image" :content="image">-->
-<!--    </Head>-->
     <Head>
         <title>{{ title }} - {{ config.name }}</title>
         <meta name="title" :content="title">
@@ -34,7 +17,7 @@ const props = defineProps([
         <meta name="theme-color" content="#381e72">
         <meta property="og:type" content="website">
         <meta property="og:url" :content="config.url">
-        <meta property="og:title" :content="`${title} - ${config.name}}`">
+        <meta property="og:title" :content="`${title} - ${config.name}`">
         <meta property="og:description" :content="description ?? config.description">
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" :content="config.url">

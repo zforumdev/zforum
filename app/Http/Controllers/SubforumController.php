@@ -14,6 +14,7 @@ class SubforumController extends Controller
         if ($request->has('search') and strlen($request->get('search')) > 0) {
             return inertia('Home', [
                 'posts' => Post::search($request->get('search'))
+                    ->where('subforum_id', $subforum->id)
                     ->get()
                     ->load(['user:id,username,display_name', 'subforum:id,name']),
                 'query' => $request->get('search'),

@@ -2,7 +2,7 @@ import { mergeProps, withCtx, unref, createVNode, withModifiers, createTextVNode
 import { ssrRenderComponent, ssrRenderAttr, ssrInterpolate, ssrIncludeBooleanAttr, ssrLooseContain } from "vue/server-renderer";
 import { useForm, router } from "@inertiajs/vue3";
 import { _ as _sfc_main$1 } from "./AuthLayout-db282edd.js";
-import { _ as _sfc_main$2 } from "./Layout-c5dc6467.js";
+import { _ as _sfc_main$2 } from "./Layout-07c57a74.js";
 import "./Content-d8260f41.js";
 const __default__ = {
   layout: _sfc_main$2

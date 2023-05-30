@@ -136,6 +136,10 @@ return [
             // 'users' => [
             //     'filterableAttributes'=> ['id', 'name', 'email'],
             // ],
+            'posts' => [
+                'filterableAttributes' => ['id', 'title', 'description', 'subforum_id'],
+                'sortableAttributes' => ['created_at', 'updated_at']
+            ]
         ],
     ],
 

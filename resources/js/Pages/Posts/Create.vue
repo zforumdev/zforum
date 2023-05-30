@@ -55,6 +55,10 @@ export default {
         <button class="btn btn-primary">Post</button>
     </form>
 
+    <div>
+        <div v-for="error in attrs.errors" class="text-error">{{ error }}</div>
+    </div>
+
     <div class="sm:flex flex-direction-col flex-grow">
         <div style="flex: 50%" class="min-w-[50%] sm:max-w-[50%]">
            <Codemirror

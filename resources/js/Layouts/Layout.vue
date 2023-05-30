@@ -16,12 +16,13 @@ const reload = () => {
     router.get(`${url.pathname}${url.search}`, { preserveScroll: true, preserveState: true })
 }
 
-watch(searchForm, () => {
-    search()
-}, { deep: true })
+// watch(searchForm, () => {
+//     console.log(searchForm)
+//     search()
+// }, { deep: true })
 
 const search = () => {
-    if (router.page.url.startsWith('/?' || '/s/') || router.page.url === '/') {
+    if (page.url.startsWith('/?') || page.url.startsWith('/s/') || page.url === '/') {
         const url = new URL(window.location.href)
         url.searchParams.delete('page')
         url.searchParams.delete('search')
