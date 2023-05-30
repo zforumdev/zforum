@@ -9,6 +9,7 @@ const props = defineProps([
 ])
 
 const escape = (str) => {
+    console.log(str)
     return str.replace(/&/g, "&amp;")
         .replace(/>/g, "&gt;")
         .replace(/</g, "&lt;")
@@ -30,6 +31,6 @@ const escape = (str) => {
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" :content="escape(config.url)">
         <meta property="twitter:title" :content="escape(`${title} - ${config.name}`)">
-        <meta property="twitter:description" :content="escape(description)">
+        <meta property="twitter:description" :content="escape(description ?? config.description)">
     </Head>
 </template>
