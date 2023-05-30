@@ -17,3 +17,20 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('zforum:make-config', function () {
+    $this->info('Generating the config file...');
+
+    $config = [
+        'name' => env('APP_NAME'),
+        'description' => env('APP_DESCRIPTION'),
+        'url' => env('APP_URL'),
+        'image' => env('APP_META_IMAGE')
+    ];
+
+    $this->info('Printing config to file (edit .env file and rerun this command to regenerate config)');
+
+    file_put_contents(__DIR__ . '/../resources/js/config.json', json_encode($config));
+
+    $this->info('Config file generated');
+})->purpose('Generate the config.json file');

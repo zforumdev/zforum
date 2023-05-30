@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { Link, router, useForm, usePage } from '@inertiajs/vue3'
+import { config } from '../config.js'
 
 const showSearch = ref(false)
 
@@ -46,7 +47,7 @@ const search = () => {
                     <button @click="reload" class="btn btn-secondary btn-circle">
                         <i class="fa-solid fa-rotate-right"></i>
                     </button>
-                    <Link href="/" class="btn btn-ghost normal-case text-xl font-bold">VForum</Link>
+                    <Link href="/" class="btn btn-ghost normal-case text-xl font-bold">{{ config.name }}</Link>
                 </div>
                 <div class="flex-none gap-2">
                     <div class="form-control">
