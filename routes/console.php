@@ -30,7 +30,7 @@ Artisan::command('zforum:make-config', function () {
 
     $this->info('Printing config to file (edit .env file and rerun this command to regenerate config)');
 
-    file_put_contents(__DIR__ . '/../resources/js/config.json', json_encode($config));
+    file_put_contents(__DIR__ . '/../resources/js/appConfig.json', json_encode($config));
 
     $this->info('Config file generated');
-})->purpose('Generate the config.json file');
+})->purpose('Generate the appConfig.json file');
