@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('admin')->default(false);
+            $table->foreignId('role_id')->default(1); // default of 1 for regular user (artisan zforum:make-default-roles)
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->removeColumn('admin');
+            $table->dropColumn('role_id');
         });
     }
 };

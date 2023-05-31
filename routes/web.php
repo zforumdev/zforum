@@ -42,3 +42,9 @@ Route::get('/auth/login', [SessionsController::class, 'create'])->middleware('gu
 Route::post('/auth/login', [SessionsController::class, 'store'])->middleware(['guest', 'throttle:login']);
 
 Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [\App\Http\Livewire\Admin\Dashboard::class, 'render']);
+
+    Route::get('/settings', [\App\Http\Livewire\Admin\Settings::class, 'render']);
+})->middleware('admin');

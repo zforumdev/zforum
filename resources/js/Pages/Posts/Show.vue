@@ -66,6 +66,8 @@ export default {
                          :body="item.body"
                          :id="item.id"
                          :replies="item.replies"
+                         :created="item.created_at"
+                         :updated="item.updated_at"
                 />
             </div>
         </div>

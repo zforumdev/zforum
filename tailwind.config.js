@@ -34,6 +34,15 @@ export default {
                     '--btn-text-case': 'normal',
                     '--rounded-box': '1.9rem',
                     '--rounded-btn': '1.9rem'
+                },
+                admin: {
+                    primary: '#4b6bfb',
+                    secondary: '#7b92b2',
+                    accent: '#67cba0',
+                    neutral: '#181a2a',
+                    'neutral-content': '#edf2f7',
+                    'base-100': '#ffffff',
+                    'base-content': '#181a2a'
                 }
             }
         ]

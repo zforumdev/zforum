@@ -1,0 +1,11 @@
+@import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+#sidebar-list {
+    * {
+        @apply text-slate-400 hover:text-slate-300
+    }
+}

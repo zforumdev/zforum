@@ -8,7 +8,9 @@ const props = defineProps([
     'id',
     'author',
     'body',
-    'replies'
+    'replies',
+    'created',
+    'updated'
 ])
 
 const rendered = render(props.body, true)
@@ -55,6 +57,8 @@ const storeReply = () => {
                    :id="item.id"
                    :author="item.user.username"
                    :body="item.body"
+                   :created="item.created_at"
+                   :updated="item.updated_at"
             />
         </div>
     </div>

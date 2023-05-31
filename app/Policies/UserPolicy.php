@@ -36,7 +36,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->admin || $user->id === $model->id;
+        return $user->id === $model->id;
     }
 
     /**
@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->admin || $user->id === $model->id;
+        return $user->role->can_delete_users or $user->id === $model->id;
     }
 
     /**
@@ -60,6 +60,6 @@ class UserPolicy
      */
     public function forceDelete(User $user , User $model): bool
     {
-        return $user->admin;
+        return false;
     }
 }

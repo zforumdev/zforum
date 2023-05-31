@@ -4,7 +4,9 @@ import { Link } from '@inertiajs/vue3'
 const props = defineProps([
     'id',
     'author',
-    'body'
+    'body',
+    'created',
+    'updated'
 ])
 </script>
 
