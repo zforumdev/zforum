@@ -43,8 +43,10 @@ Route::post('/auth/login', [SessionsController::class, 'store'])->middleware(['g
 
 Route::post('/auth/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [\App\Http\Livewire\Admin\Dashboard::class, 'render']);
+Route::middleware('admin')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [\App\Http\Livewire\Admin\Dashboard::class, 'render']);
 
-    Route::get('/settings', [\App\Http\Livewire\Admin\Settings::class, 'render']);
-})->middleware('admin');
+        Route::get('/settings', [\App\Http\Livewire\Admin\Settings::class, 'render']);
+    });
+});

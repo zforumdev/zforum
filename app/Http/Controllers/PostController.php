@@ -36,7 +36,7 @@ class PostController extends Controller
             'post' => $post->with(['user:id,username,display_name'])->where('id', $post->id)->firstOrFail(),
             'body' => Str::markdown($post->body),
             'description' => Str::limit($post->body),
-            'comments' => $post->comments()->with(['user:id,username', 'replies.user:id,username'])->get(),
+            'comments' => $post->comments()->with(['user:id,username', 'replies.user:id,username'])->paginate(50),
             'update' => $request->user()?->can('update', $post) ?? false,
             'delete' => $request->user()?->can('delete', $post) ?? false
         ]);

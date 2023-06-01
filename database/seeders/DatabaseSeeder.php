@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory(100)->create();
         Subforum::factory(rand(3, 10))->create();
-        Post::factory(rand(100, 200))->create();
-        Comment::factory(400)->create();
-        Reply::factory(500)->create();
+        Post::factory(rand(300, 500))->create();
+        Comment::factory(800)->create();
+        Reply::factory(1000)->create();
     }
 }

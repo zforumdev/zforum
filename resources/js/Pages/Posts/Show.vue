@@ -1,5 +1,5 @@
 <script setup>
-import { useAttrs } from 'vue'
+import { ref, useAttrs } from 'vue'
 import { Link, router, useForm } from '@inertiajs/vue3'
 import Content from '../../Components/Content.vue'
 import CreateMeta from '../../Components/CreateMeta.vue'
@@ -11,6 +11,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 const attrs = useAttrs()
+const allComments = ref(attrs.comments.data)
 
 const commentForm = useForm({
     body: ''
@@ -19,6 +20,17 @@ const commentForm = useForm({
 const storeComment = () => {
     router.post(`${router.page.url}/add-comment`, commentForm)
     commentForm.body = ''
+}
+
+const loadMore = () => {
+    router.visit(attrs.comments.next_page_url, {
+        preserveState: true,
+        preserveScroll: true,
+        only: ['comments'],
+        onSuccess: (data) => {
+            allComments.value.push(...data.props.comments.data)
+        }
+    })
 }
 </script>
 
@@ -59,9 +71,9 @@ export default {
             <button class="btn btn-secondary">Post</button>
         </form>
 
-        <div class="card bg-base-200 p-4 mt-4" v-if="attrs.comments.length > 0">
+        <div class="card bg-base-200 p-4 mt-4" v-if="allComments.length > 0">
             <div class="space-y-8">
-                <Comment v-for="item in attrs.comments"
+                <Comment v-for="item in allComments"
                          :author="item.user.username"
                          :body="item.body"
                          :id="item.id"
@@ -70,6 +82,11 @@ export default {
                          :updated="item.updated_at"
                 />
             </div>
+
+            <button v-if="attrs.comments.current_page !== attrs.comments.last_page"
+                    class="btn btn-primary w-full mt-5" @click="loadMore">
+                Load More
+            </button>
         </div>
     </Content>
 </template>
