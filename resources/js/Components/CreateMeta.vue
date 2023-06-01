@@ -9,7 +9,6 @@ const props = defineProps([
 ])
 
 const escape = (str) => {
-    console.log(str)
     return str.replace(/&/g, "&amp;")
         .replace(/>/g, "&gt;")
         .replace(/</g, "&lt;")
