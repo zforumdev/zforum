@@ -6,7 +6,15 @@ export default {
         './resources/**/*.vue'
     ],
     theme: {
-        extend: {}
+        extend: {
+            typography: {
+                DEFAULT: {
+                    css: {
+                        maxWidth: '128ch'
+                    }
+                }
+            }
+        }
     },
     daisyui: {
         themes: [

@@ -7,12 +7,14 @@ const props = defineProps(['page'])
 
 <template>
     <Content>
-        <div class="not-prose flex mb-4 w-fit mx-auto">
-            <Link href="/auth/register" :class="{ underline: props.page === 'register' }">Register</Link>
-            <div class="divider divider-horizontal"></div>
-            <Link href="/auth/login" :class="{ underline: props.page === 'login' }">Log in</Link>
-        </div>
+        <div class="w-full max-w-[48ch] mx-auto">
+            <div class="not-prose flex mb-4 w-fit mx-auto">
+                <Link href="/auth/register" :class="{ underline: props.page === 'register' }">Register</Link>
+                <div class="divider divider-horizontal"></div>
+                <Link href="/auth/login" :class="{ underline: props.page === 'login' }">Log in</Link>
+            </div>
 
-        <slot />
+            <slot />
+        </div>
     </Content>
 </template>
