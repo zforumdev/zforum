@@ -1,5 +1,5 @@
 <script setup>
-import { ref, useAttrs } from 'vue'
+import { onMounted, ref, useAttrs } from 'vue'
 import { Link, router, useForm } from '@inertiajs/vue3'
 import Content from '../../Components/Content.vue'
 import CreateMeta from '../../Components/CreateMeta.vue'
@@ -21,6 +21,14 @@ const storeComment = () => {
     router.post(`${router.page.url}/add-comment`, commentForm)
     commentForm.body = ''
 }
+
+onMounted(() => {
+    if (attrs.comments.current_page !== 1) {
+        const url = new URL(window.location.href)
+        url.searchParams.delete('page')
+        router.get(`${url.pathname}${url.search}`)
+    }
+})
 
 const loadMore = () => {
     router.visit(attrs.comments.next_page_url, {
