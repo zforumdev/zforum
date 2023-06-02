@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SubforumController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PostController::class, 'index']);
-Route::get('/s/{subforum:slug}', [SubforumController::class, 'view']);
+Route::get('/s/{subforum:slug}', [PostController::class, 'index']);
 
 Route::get('/post/{post}', [PostController::class, 'view']);
 

@@ -3,31 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Subforum;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use function Clue\StreamFilter\fun;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index(Subforum $subforum, Request $request)
     {
+        $use_subforum = false;
+
+        if ($subforum->id) {
+            $use_subforum = true;
+        }
+
         if ($request->has('search') and strlen($request->get('search')) > 0) {
+            $posts = Post::search($request->get('search'))
+                ->when($subforum, function ($query, $subforum) {
+                    return $query->where('subforum_id', $subforum->id);
+                })
+                ->get()
+                ->load(['user:id,username,display_name', 'subforum:id,name']);
             return inertia('Home', [
-                'posts' => Post::search($request->get('search'))
-                    ->get()
-                    ->load(['user:id,username,display_name', 'subforum:id,name']),
-                'query' => $request->get('search')
+                'posts' => $posts,
+                'count' => $posts->count(),
+                'query' => $request->get('search'),
+                'subforum' => $subforum ?? null
             ]);
         }
 
-        return inertia('Home', [
-            'posts' => Post::with(['user:id,username,display_name', 'subforum:id,name'])
-                ->orderBy('updated_at', 'desc')
-                ->paginate(10)
-        ]);
+        $posts = Post::with(['user:id,username,display_name', 'subforum:id,name'])
+            ->when($use_subforum, function ($query, $subforum) {
+                return $query->where('subforum_id', $subforum->id);
+            })
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
+        return dd($subforum, $request, inertia('Home', [
+            'posts' => $posts,
+            'count' => $posts->count(),
+            'subforum' => $subforum ?? null
+        ]));
     }
 
     public function view(Post $post, Request $request)
