@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-use function Clue\StreamFilter\fun;
 
 class PostController extends Controller
 {
@@ -29,7 +28,7 @@ class PostController extends Controller
                 })
                 ->get()
                 ->load(['user:id,username,display_name', 'subforum:id,name']);
-            return inertia('Home', [
+            return Inertia::render('Home', [
                 'posts' => $posts,
                 'count' => $posts->count(),
                 'query' => $request->get('search'),
@@ -43,16 +42,16 @@ class PostController extends Controller
             })
             ->orderBy('updated_at', 'desc')
             ->paginate(10);
-        return dd($subforum, $request, inertia('Home', [
+        return Inertia::render('Home', [
             'posts' => $posts,
             'count' => $posts->count(),
             'subforum' => $subforum ?? null
-        ]));
+        ]);
     }
 
     public function view(Post $post, Request $request)
     {
-        return inertia('Posts/Show', [
+        return Inertia::render('Posts/Show', [
             'post' => $post->with(['user:id,username,display_name'])->where('id', $post->id)->firstOrFail(),
             'body' => Str::markdown($post->body),
             'description' => Str::limit($post->body),
@@ -89,7 +88,7 @@ class PostController extends Controller
             abort(403);
         }
 
-        return inertia('Posts/Create', [
+        return Inertia::render('Posts/Create', [
             'title' => $post->title,
             'body' => $post->body,
             'post' => $post->only(['id']),
