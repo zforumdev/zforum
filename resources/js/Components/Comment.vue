@@ -25,7 +25,9 @@ const replyForm = useForm({
 })
 
 const storeReply = () => {
-    router.post('/add-reply', replyForm)
+    router.post('/add-reply', replyForm, {
+        preserveState: false
+    })
     replyForm.body = ''
     showReplies.value = true
     showReplyInput.value = false
@@ -34,10 +36,9 @@ const storeReply = () => {
 
 <template>
     <div class="not-prose">
-        <div>
+        <div class="flex gap-2">
             <Link class="text-sm text-neutral-500" :href="`/u/${author}`">@{{ author }}</Link>
-            |
-            <button class="text-sm" @click="showReplyInput = !showReplyInput">reply</button>
+            <button class="text-sm" @click="showReplyInput = !showReplyInput" v-if="$page.props.auth">reply</button>
         </div>
 
         <p class="prose" v-html="rendered"></p>

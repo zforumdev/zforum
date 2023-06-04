@@ -5,6 +5,7 @@ import Content from '../Components/Content.vue'
 import CreateMeta from '../Components/CreateMeta.vue'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Layout from '../Layouts/Layout.vue'
 dayjs.extend(relativeTime)
 
 const attrs = useAttrs()
@@ -49,17 +50,18 @@ export default {
         </div>
 
         <article class="space-y-5" id="el">
-            <section v-for="(item, index) in allPosts" class="not-prose">
-                <Link :href="`/post/${item.id}`" class="card bg-base-200 p-4 no-underline">
+            <section v-for="item in allPosts" class="not-prose">
+                <Link :href="`/post/${item.id}`" class="card bg-base-200 p-4 no-underline active:scale-[0.98] transition duration-70 ease-in-out">
                     <div class="text-sm breadcrumbs">
                         <ul>
-                            <li>Root</li>
+                            <li>/</li>
                             <li>{{ item.subforum.name }}</li>
+                            <li>@{{ item.user.username }}</li>
                             <li>Post</li>
                         </ul>
                     </div>
                     <h3 class="text-2xl font-bold">{{ item.title }}</h3>
-                    <span>by @{{ item.user.username }} | posted {{ dayjs(item.created_at).fromNow() }}</span>
+                    <span>by <strong>{{ item.user.display_name }}</strong> | posted {{ dayjs(item.created_at).fromNow() }}</span>
                     <p>{{ item.description }}</p>
                 </Link>
             </section>

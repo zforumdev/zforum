@@ -23,7 +23,6 @@
         "@fortawesome/fontawesome-free": "^6.4.0",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/vue3": "^1.0.7",
-        "@material/web": "1.0.0-pre.9",
         "@vitejs/plugin-vue": "^4.2.3",
         "@vue/server-renderer": "^3.3.4",
         "codemirror": "^6.0.1",

@@ -138,7 +138,7 @@ return [
             // ],
             'posts' => [
                 'filterableAttributes' => ['id', 'title', 'description', 'subforum_id'],
-                'sortableAttributes' => ['created_at', 'updated_at']
+                'sortableAttributes' => ['created_at', 'updated_at', 'subforum_id']
             ]
         ],
     ],

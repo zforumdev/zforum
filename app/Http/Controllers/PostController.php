@@ -15,16 +15,10 @@ class PostController extends Controller
 {
     public function index(Subforum $subforum, Request $request)
     {
-        $use_subforum = false;
-
-        if ($subforum->id) {
-            $use_subforum = true;
-        }
-
         if ($request->has('search') and strlen($request->get('search')) > 0) {
             $posts = Post::search($request->get('search'))
-                ->when($subforum, function ($query, $subforum) {
-                    return $query->where('subforum_id', $subforum->id);
+                ->when($subforum->id, function ($query, $subforum) {
+                    return $query->where('subforum_id', $subforum);
                 })
                 ->get()
                 ->load(['user:id,username,display_name', 'subforum:id,name']);
@@ -37,11 +31,11 @@ class PostController extends Controller
         }
 
         $posts = Post::with(['user:id,username,display_name', 'subforum:id,name'])
-            ->when($use_subforum, function ($query, $subforum) {
-                return $query->where('subforum_id', $subforum->id);
+            ->when($subforum->id, function ($query, $subforum) {
+                return $query->where('subforum_id', $subforum);
             })
             ->orderBy('updated_at', 'desc')
-            ->paginate(10);
+            ->paginate(50);
         return Inertia::render('Home', [
             'posts' => $posts,
             'count' => $posts->count(),
@@ -61,13 +55,21 @@ class PostController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->user()->cannot('create', Post::class)) {
+            return back()->with('error', 'You are not permitted to create posts');
+        }
+
         return inertia('Posts/Create');
     }
 
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', Post::class)) {
+            return back()->with('error', 'You are not permitted to create posts');
+        }
+
         $attributes = $request->validate([
             'title' => ['required', 'min:10', 'max:128'],
             'body' => ['required', 'min:32', 'max:2500'],

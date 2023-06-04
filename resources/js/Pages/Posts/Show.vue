@@ -18,7 +18,9 @@ const commentForm = useForm({
 })
 
 const storeComment = () => {
-    router.post(`${router.page.url}/add-comment`, commentForm)
+    router.post(`/post/${attrs.post.id}/add-comment`, commentForm, {
+        preserveState: false
+    })
     commentForm.body = ''
 }
 
@@ -74,7 +76,7 @@ export default {
 
         <hr />
 
-        <form class="flex gap-2" @submit.prevent="storeComment">
+        <form class="flex gap-2" @submit.prevent="storeComment" v-if="attrs.auth">
             <textarea class="textarea textarea-bordered w-full" rows="1" v-model="commentForm.body"></textarea>
             <button class="btn btn-secondary">Post</button>
         </form>

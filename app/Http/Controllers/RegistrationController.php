@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -25,6 +27,15 @@ class RegistrationController extends Controller
         ]);
 
         $user = User::create($attributes);
+
+        if (!env('USE_EMAIL_VERIFICATION')) {
+            $user->email_verified_at = Carbon::now();
+        }
+
+        $user->role_id = env('DEFAULT_USER_TYPE');
+        $user->update();
+
+        event(new Registered($user));
 
         Auth::login($user);
 

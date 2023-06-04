@@ -56,6 +56,8 @@ Artisan::command('zforum:admin {--remove : Remove admin from a user} {username}'
     $user->admin = true;
     $user->update();
 
+    $this->comment('I recommend adding this user as a super moderator-like role, one with all permissions, so they can access moderation options from the frontend, and not just the admin panel.');
+
     return 0;
 })->purpose('Make a user admin by their username');
 
@@ -79,7 +81,8 @@ Artisan::command('zforum:make-default-roles {--all : Generate all default roles 
         'can_delete_users' => false,
         'can_send_messages' => true,
         'can_report_content' => true,
-        'can_view_reports' => false
+        'can_view_reports' => false,
+        'can_restrict_users' => false
     ]);
 
     $this->info('Adding \'resstricted user\' role');
@@ -93,7 +96,8 @@ Artisan::command('zforum:make-default-roles {--all : Generate all default roles 
         'can_delete_users' => false,
         'can_send_messages' => false,
         'can_report_content' => true,
-        'can_view_reports' => false
+        'can_view_reports' => false,
+        'can_restrict_users' => false
     ]);
 
     if ($this->option('all')) {
@@ -108,7 +112,8 @@ Artisan::command('zforum:make-default-roles {--all : Generate all default roles 
             'can_delete_users' => false,
             'can_send_messages' => true,
             'can_report_content' => true,
-            'can_view_reports' => true
+            'can_view_reports' => true,
+            'can_restrict_users' => true
         ]);
 
         $this->info('Adding \'trusted moderator\' role');
@@ -122,7 +127,8 @@ Artisan::command('zforum:make-default-roles {--all : Generate all default roles 
             'can_delete_users' => false,
             'can_send_messages' => true,
             'can_report_content' => true,
-            'can_view_reports' => true
+            'can_view_reports' => true,
+            'can_restrict_users' => true
         ]);
 
         $this->info('Adding \'super moderator\' role');
@@ -136,7 +142,8 @@ Artisan::command('zforum:make-default-roles {--all : Generate all default roles 
             'can_delete_users' => true,
             'can_send_messages' => true,
             'can_report_content' => true,
-            'can_view_reports' => true
+            'can_view_reports' => true,
+            'can_restrict_users' => true
         ]);
     }
 
